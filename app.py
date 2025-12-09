@@ -18,6 +18,17 @@ try:
 except LookupError:
     nltk.download('stopwords')
 
+# Some NLTK versions (and tokenizers) require the 'punkt_tab' resource
+# which provides additional tokenizer parameters. Ensure it's available.
+try:
+    nltk.data.find('tokenizers/punkt_tab/english')
+except LookupError:
+    try:
+        nltk.download('punkt_tab')
+    except Exception:
+        # If download fails, continue — word_tokenize may still work
+        pass
+
 
 def transform_text(text):
     text = text.lower()

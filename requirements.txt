@@ -1,7 +1,8 @@
 # Requirements for running `app.py` (designed for Python 3.11)
 streamlit
 nltk
-scikit-learn
+# Pin scikit-learn to match the version used when the model was pickled
+scikit-learn==1.2.2
 joblib
 numpy
 pandas
