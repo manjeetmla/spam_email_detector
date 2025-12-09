@@ -7,6 +7,17 @@ from nltk.stem.porter import PorterStemmer
 
 ps = PorterStemmer()
 
+# Ensure required NLTK data is available (Streamlit Cloud may not have these downloaded)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+
 
 def transform_text(text):
     text = text.lower()
@@ -32,8 +43,15 @@ def transform_text(text):
 
     return " ".join(y)
 
-tfidf = pickle.load(open('Spam_Emails_Detector/vectorizer.pkl','rb'))
-model = pickle.load(open('Spam_Emails_Detector\model.pkl','rb'))
+import os
+
+# Load model and vectorizer from the project root (works on Streamlit Cloud)
+BASE_DIR = os.path.dirname(__file__)
+tfidf_path = os.path.join(BASE_DIR, 'vectorizer.pkl')
+model_path = os.path.join(BASE_DIR, 'model.pkl')
+
+tfidf = pickle.load(open(tfidf_path, 'rb'))
+model = pickle.load(open(model_path, 'rb'))
 
 st.title("Email/SMS Spam Classifier")
 
