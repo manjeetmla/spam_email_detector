@@ -1,5 +1,8 @@
+# Requirements for running `app.py` (designed for Python 3.11)
 streamlit
 nltk
-pandas
+scikit-learn
+joblib
 numpy
-pickle
+pandas
+scipy
